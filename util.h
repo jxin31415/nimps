@@ -25,3 +25,8 @@
 #include <chrono>
 
 using namespace std;
+
+#undef assert
+
+void assume(bool constraint) {} // Dummy assume
+void assert(bool constraint) {} // Dummy assert

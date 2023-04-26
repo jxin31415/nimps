@@ -16,7 +16,7 @@ bool verifier(ast_ptr node) {
     out_file.close();
     
     // Verify with a loop invariant generator
-
+    
     return false;
 }
 

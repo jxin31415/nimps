@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<envt> test_vec(10);
+vector<envt> test_vec(100);
 void setup_test_vec(vector<string>& vars) {
     for(int t = 0; t < test_vec.size(); t++) {
         envt env;
