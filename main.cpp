@@ -1,23 +1,27 @@
 #include "util.h"
-#include "inv_gen.h"
+#include "verifier.h"
 #include "enumerate.h"
+#include "game.h"
 
 using namespace std;
 
-string game;
+vector<string> vars = {"sum", "a", "iter"};
+vector<int> consts = {0, 1, 2, 4};
+vector<int> valid_moves = {1, 2, 3};
+
+string game_str;
 size_t hole_pos;
 
-bool verifier(ast_ptr node) {
-    string copy = game;
+bool verif_wrapper(ast_ptr node) {
+    string copy = game_str;
     copy.replace(hole_pos, 2, node->to_string());
 
-    ofstream out_file("out/test_game.c");
-    out_file << copy;
-    out_file.close();
-    
-    // Verify with a loop invariant generator
-    
-    return false;
+    string out_file = "out/test_game.c";
+    ofstream out(out_file);
+    out << copy;
+    out.close();
+
+    return verifier(node, out_file);
 }
 
 string read_game() {
@@ -29,17 +33,15 @@ string read_game() {
 
 int main() {
 
-    game = read_game();
-    hole_pos = game.find("??");
+    game_str = read_game();
+    hole_pos = game_str.find("??");
     if (hole_pos == string::npos) {
         cout << "No holes found" << endl;
         return 0;
     }
 
-    vector<string> vars = {"running_sum", "player_a"};
-    vector<int> consts = {0, 1, 2, 4};
-
-    ast_ptr ans = bottom_up(vars, consts, verifier);
+    setup_rand_games(valid_moves);
+    ast_ptr ans = bottom_up(vars, consts, verif_wrapper);
     
     return 0;
 }

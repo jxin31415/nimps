@@ -85,16 +85,16 @@ ast_ptr bottom_up(vector<string>& vars, vector<int>& consts, bool (*verifier)(as
                 insert(make_shared<Plus>(trees_num[a], trees_num[b]), trees_num, visited_num);
                 insert(make_shared<Minus>(trees_num[a], trees_num[b]), trees_num, visited_num);
                 insert(make_shared<Times>(trees_num[a], trees_num[b]), trees_num, visited_num);
-                insert(make_shared<Lt>(trees_num[a], trees_num[b]), trees_num, visited_num);
-                insert(make_shared<Eq>(trees_num[a], trees_num[b]), trees_num, visited_num);
+                insert(make_shared<Lt>(trees_num[a], trees_num[b]), trees_bool, visited_bool);
+                insert(make_shared<Eq>(trees_num[a], trees_num[b]), trees_bool, visited_bool);
             }
         }
 
         // Binary Ops on BOOL
         for(int a = 0; a < count_bool; a++) {
             for(int b = 0; b < count_bool; b++) {
-                insert(make_shared<And>(trees_bool[a], trees_bool[b]), trees_num, visited_bool);
-                insert(make_shared<Or>(trees_bool[a], trees_bool[b]), trees_num, visited_bool);
+                insert(make_shared<And>(trees_bool[a], trees_bool[b]), trees_bool, visited_bool);
+                insert(make_shared<Or>(trees_bool[a], trees_bool[b]), trees_bool, visited_bool);
             }
         }
         

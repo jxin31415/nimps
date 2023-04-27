@@ -2,51 +2,42 @@
 
 #include "util.h"
 
-// void the_21_game(int a_moves[]) {
-//     int running_sum = 0;
-    
-//     while(1) {
-//         // Player A
-//         int a_move = a_moves[0]; a_moves++;
-//         assume(a_move >= 1 && a_move <= 3);
-//         running_sum += a_move;
+using namespace std;
 
-//         if(running_sum >= 21) { // Player A loses!
-//             break;
-//         }
+bool game(vector<int> player_a, hole hole) {
+  // variable declarations
+  int sum;
+  int win;
+  int iter;
 
-//         // Player B
-//         int b_move = ??;
-//         assert(b_move >= 1 && b_move <= 3);
-//         running_sum += b_move;
+  // pre-conditions
+  (sum = 0);
+  (win = 0);
+  (iter = 0);
 
-//         if(running_sum >= 21) { // Player B should never lose!
-//             assert(0);
-//         }
-//     }
-// }
+  // loop body
+  while ((sum < 21)) {
+    {
+    int a = player_a[iter];
+    assume( (a >= 1) );
+    assume( (a <= 3) );
 
-bool the_21_game(int a_moves[], int target = 21) {
-    int running_sum = 0;
-    
-    while(1) {
-        // Player A
-        int a_move = a_moves[0]; a_moves++;
-        assume(a_move >= 1 && a_move <= 3);
-        running_sum += a_move;
+    int b;
+    (b = (*hole)(vector<string> {"a", "sum", "iter"}, vector<int> {a, sum, iter}));
+    assume( (b >= 1) );
+    assume( (b <= 3) );
 
-        if(running_sum >= target) { // Player A loses!
-            return true;
-        }
+    (sum = (sum + a));
 
-        // Player B
-        int b_move = ??;
-        assert(b_move >= 1 && b_move <= 3);
-        running_sum += b_move;
-
-        if(running_sum >= target) { // Player B should never lose!
-            assert(0);
-            return false;
-        }
+    if(sum >= 21) {
+        win = 1;
     }
+
+    (sum = (sum + b));
+    (iter = (iter + 1));
+    }
+  }
+
+  // post-condition: should be a win
+  return win > 0;
 }

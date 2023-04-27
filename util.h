@@ -10,7 +10,7 @@
 #include <sstream>
 #include <assert.h>
 #include <stdlib.h>
-#include <filesystem>
+#include <experimental/filesystem>
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
@@ -30,3 +30,5 @@ using namespace std;
 
 void assume(bool constraint) {} // Dummy assume
 void assert(bool constraint) {} // Dummy assert
+
+typedef int (*hole)(vector<string>, vector<int>);

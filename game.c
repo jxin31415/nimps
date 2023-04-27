@@ -17,7 +17,7 @@ int main() {
     assume( (a <= 3) );
 
     int b;
-    (b = ((iter<sum)||(iter<a)));
+    (b = ??);
     // assume( (b >= 1) );
     // assume( (b <= 3) );
 

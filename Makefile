@@ -5,6 +5,7 @@ build_type := Release
 .SILENT:
 
 all: 
+	rm -rf bin && \
 	mkdir bin && \
 	g++ -std=c++17 main.cpp -o bin/main && \
 	./bin/main
