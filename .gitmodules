@@ -1,3 +1,6 @@
 [submodule "code2inv"]
 	path = code2inv
 	url = https://github.com/PL-ML/code2inv.git
+[submodule "LoopInvGen"]
+	path = LoopInvGen
+	url = https://github.com/SaswatPadhi/LoopInvGen.git
