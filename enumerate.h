@@ -26,7 +26,12 @@ string gen_hash(ast_ptr tree) {
 }
 
 void insert(ast_ptr node, vector<ast_ptr>& progs, set<string>& set) {
-    string hash = gen_hash(node);
+    string hash = gen_hash(node); // If using observational equivalence, check output on random test vectors
+
+    if(!OBSERVATIONAL_EQUIVALENCE) { // If not, compare syntax directly
+        hash = node->to_string();
+    }
+
     if(set.count(hash) == 0) {
         progs.push_back(node);
         set.insert(hash);
@@ -38,10 +43,15 @@ ast_ptr bottom_up(vector<string>& vars, vector<int>& consts, bool (*verifier)(as
     // Utilize observational equivalence using "test vectors"
     setup_test_vec(vars);
 
-    vector<ast_ptr> trees_num;
-    vector<ast_ptr> trees_bool;
-    set<string> visited_num;
-    set<string> visited_bool;
+    vector<ast_ptr>& trees_num;
+    vector<ast_ptr>& trees_bool;
+    set<string>& visited_num;
+    set<string>& visited_bool;
+
+    if(!TYPE_DIRECTED) {
+        trees_bool = trees_num;
+        visited_bool = visited_num;
+    }
 
     for(string each: vars) {
         insert(make_shared<Var>(each), trees_num, visited_num);

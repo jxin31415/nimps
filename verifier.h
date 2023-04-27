@@ -47,7 +47,7 @@ bool verifier(ast_ptr node, string out_file) {
     valid_strategy = true;
     for(int i = 0; i < rand_games.size(); i++) {
         bool res = game(rand_games[i], &hole_filler);
-        if(!res) { // Game lost! Strategy doesn't work
+        if(RANDOM_OPPONENT && !res) { // Game lost! Strategy doesn't work
             return false;
         }
         if(!valid_strategy) { // Generates invalid moves!
@@ -55,11 +55,11 @@ bool verifier(ast_ptr node, string out_file) {
         }
     }
 
+    cout << node->to_string() << " strategy passes random opponent!" << endl;
     // Phase 2: play against adversarial opponent
     // -- Future work -- 
 
     // Phase 3: formally verify
 
-    cout << node->to_string() << ": strategy found!" << endl;
     return false;
 }

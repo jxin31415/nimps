@@ -28,6 +28,12 @@ using namespace std;
 
 #undef assert
 
+// ----- Baselines -----
+const bool OBSERVATIONAL_EQUIVALENCE = true;
+const bool RANDOM_OPPONENT = true;
+const bool ADVERSARIAL_OPPONENT = false;
+const bool TYPE_DIRECTED = true;
+
 void assume(bool constraint) {} // Dummy assume
 void assert(bool constraint) {} // Dummy assert
 
