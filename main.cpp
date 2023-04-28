@@ -16,7 +16,7 @@ bool verif_wrapper(ast_ptr node) {
     string copy = game_str;
     copy.replace(hole_pos, 2, node->to_string());
 
-    string out_file = "out/test_game.c";
+    string out_file = "out/test_game.fun";
     ofstream out(out_file);
     out << copy;
     out.close();
@@ -25,7 +25,7 @@ bool verif_wrapper(ast_ptr node) {
 }
 
 string read_game() {
-    ifstream t("game.c");
+    ifstream t("game.fun");
     stringstream buffer;
     buffer << t.rdbuf();
     return buffer.str();

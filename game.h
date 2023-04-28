@@ -7,7 +7,6 @@ using namespace std;
 bool game(vector<int> player_a, hole hole) {
   // variable declarations & preconditions
   int sum = 0;
-  int win = 0;
   int iter = 0;
 
   // loop body
@@ -22,14 +21,13 @@ bool game(vector<int> player_a, hole hole) {
 
     sum = sum + a;
 
-    if(sum >= 21) {
-        win = 1;
+    if(sum < 21 && sum + b >= 21) {
+        return false;
     }
 
     sum = sum + b;
     iter = iter + 1;
   }
 
-  // post-condition: should be a win
-  return win > 0;
+  return true;
 }

@@ -1,6 +1,3 @@
-[submodule "code2inv"]
-	path = code2inv
-	url = https://github.com/PL-ML/code2inv.git
-[submodule "LoopInvGen"]
-	path = LoopInvGen
-	url = https://github.com/SaswatPadhi/LoopInvGen.git
+[submodule "fun_verifier"]
+	path = fun_verifier
+	url = https://github.com/jxin31415/fun_verifier.git
