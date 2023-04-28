@@ -1,4 +1,4 @@
-game = fun [] {
+game = fun {
     sum = 0
     iter = 0
 

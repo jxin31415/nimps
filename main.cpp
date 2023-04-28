@@ -5,7 +5,7 @@
 
 using namespace std;
 
-vector<string> vars = {"sum", "a", "iter"};
+vector<string> vars = {"a", "sum", "iter"}; // "a" is the other player's moves
 vector<int> consts = {0, 1, 2, 4};
 vector<int> valid_moves = {1, 2, 3};
 
@@ -13,12 +13,7 @@ bool verif_wrapper(ast_ptr node, string game_str, size_t hole_pos) {
     string copy = game_str;
     copy.replace(hole_pos, 2, node->to_string());
 
-    string out_file = "out/test_game.fun";
-    ofstream out(out_file);
-    out << copy;
-    out.close();
-
-    return verifier(node, out_file);
+    return verifier(node, copy);
 }
 
 string read_game() {
@@ -30,7 +25,23 @@ string read_game() {
 
 int main() {
 
+    // Input Parsing
     string game_str = read_game();
+
+    // Adding encoding for valid moves
+    string valid_moves_str = "";
+    for(int move: valid_moves) {
+        valid_moves_str.append(vars[0] + "==" + to_string(move) + " || ");
+    }
+    valid_moves_str.resize(valid_moves_str.size() - 4); // Remove the last ||
+    size_t fun_pos = game_str.find("fun");
+    game_str.insert(fun_pos + 3, "[(" + valid_moves_str + ")]");
+
+    // Identifying location for loop invariant
+    size_t inv_pos = game_str.find("[]");
+    game_str.insert(inv_pos + 1, "(?inv) && (" + valid_moves_str + ")");
+    
+    // Finding the program hole
     size_t hole_pos = game_str.find("??");
     if (hole_pos == string::npos) {
         cout << "No holes found" << endl;

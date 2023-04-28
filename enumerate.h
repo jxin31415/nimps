@@ -38,7 +38,7 @@ void insert(ast_ptr node, vector<ast_ptr>* progs, set<string>* set) {
     }
 }
 
-void bottom_up(vector<string>& vars, vector<int>& consts, vector<ast_ptr>& nums, vector<ast_ptr>& bools, int global_bound=3) {
+void bottom_up(vector<string>& vars, vector<int>& consts, vector<ast_ptr>& nums, vector<ast_ptr>& bools, int global_bound=2) {
 
     // Utilize observational equivalence using "test vectors"
     setup_test_vec(vars);

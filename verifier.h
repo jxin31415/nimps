@@ -40,7 +40,7 @@ int hole_filler(vector<string> vars, vector<int> vals) {
     return move;
 }
 
-bool verifier(ast_ptr node, string out_file) {
+bool verifier(ast_ptr node, string game_str) {
 
     // Phase 1: play against a random opponent
     cur_node = node;
@@ -60,6 +60,10 @@ bool verifier(ast_ptr node, string out_file) {
     // -- Future work -- 
 
     // Phase 3: formally verify
+    string out_file = "fun_verifier/in.fun";
+    ofstream out(out_file);
+    out << game_str;
+    out.close();
 
     cout << node->to_string() << " strategy passes formal verification!" << endl;
     // Verifiably correct strategy found!
