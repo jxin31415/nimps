@@ -5,12 +5,18 @@
 
 using namespace std;
 
-vector<envt> test_vec(200);
+vector<envt> test_vec(300);
 void setup_test_vec(vector<string>& vars) {
+
     for(int t = 0; t < test_vec.size(); t++) {
+        int mod = t+1;
+        if(t > 100) {
+            mod = 20;
+        }
+
         envt env;
         for(string each: vars) {
-            env.set(each, rand() % (t+1));
+            env.set(each, rand() % mod);
         }
         test_vec[t] = env;
     }
