@@ -40,7 +40,7 @@ int hole_filler(vector<string> vars, vector<int> vals) {
     return move;
 }
 
-bool verifier(ast_ptr node, string game_str) {
+bool verifier(ast_ptr node, string game_str, vector<ast_ptr> nums, vector<ast_ptr> bools) {
 
     // Phase 1: play against a random opponent
     cur_node = node;
@@ -60,12 +60,29 @@ bool verifier(ast_ptr node, string game_str) {
     // -- Future work -- 
 
     // Phase 3: formally verify
-    string out_file = "fun_verifier/in.fun";
-    ofstream out(out_file);
-    out << game_str;
-    out.close();
+    size_t inv_pos = game_str.find("?inv");
+    for(ast_ptr inv: bools) {
+        string copy = game_str;
+        copy.replace(inv_pos, 4, inv->to_string());
 
-    cout << node->to_string() << " strategy passes formal verification!" << endl;
-    // Verifiably correct strategy found!
+        string out_file = "fun_verifier/in.fun";
+        ofstream out(out_file);
+        out << copy;
+        out.close();
+
+        system("cd fun_verifier/; ant -S >nul 2>nul");
+
+        string res;
+        ifstream res_file("fun_verifier/result.out");
+        getline(res_file, res);
+        res_file.close();
+
+        if(res == "YES") {
+            cout << node->to_string() << " strategy passes formal verification with invariant " << inv->to_string() << "!" << endl;
+            return false;
+        }
+    }
+    
+    // Verifiably correct strategy not found :(
     return false;
 }

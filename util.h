@@ -10,6 +10,7 @@
 #include <sstream>
 #include <assert.h>
 #include <stdlib.h>
+#include <cstdlib>
 #include <experimental/filesystem>
 #include <memory>
 #include <unordered_map>
