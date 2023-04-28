@@ -38,7 +38,7 @@ void insert(ast_ptr node, vector<ast_ptr>* progs, set<string>* set) {
     }
 }
 
-ast_ptr bottom_up(vector<string>& vars, vector<int>& consts, bool (*verifier)(ast_ptr), int global_bound=3) {
+void bottom_up(vector<string>& vars, vector<int>& consts, vector<ast_ptr>& nums, vector<ast_ptr>& bools, int global_bound=3) {
 
     // Utilize observational equivalence using "test vectors"
     setup_test_vec(vars);
@@ -63,17 +63,6 @@ ast_ptr bottom_up(vector<string>& vars, vector<int>& consts, bool (*verifier)(as
 
     insert(make_shared<Const>(0), trees_bool, visited_bool);
     insert(make_shared<Const>(1), trees_bool, visited_bool);
-    
-    for(ast_ptr each: *trees_num) {
-        if(verifier(each)) {
-            return each;
-        }
-    }
-    for(ast_ptr each: *trees_bool) {
-        if(verifier(each)) {
-            return each;
-        }
-    }
 
     int size = 1;
     while(size < global_bound) {
@@ -107,22 +96,16 @@ ast_ptr bottom_up(vector<string>& vars, vector<int>& consts, bool (*verifier)(as
                 insert(make_shared<Or>((*trees_bool)[a], (*trees_bool)[b]), trees_bool, visited_bool);
             }
         }
-        
-        for(int i = count_nums; i < trees_num->size(); i++){
-            if(verifier((*trees_num)[i])) {
-                return (*trees_num)[i];
-            }
-        }
-        for(int i = count_bool; i < trees_bool->size(); i++){
-            if(verifier((*trees_bool)[i])) {
-                return (*trees_bool)[i];
-            }
-        }
 
         size++;
     }
 
-    cout << "No program found!" << endl;
     cout << "Enumerated over " << trees_num->size() + trees_bool->size() << " programs" << endl;
-    exit(0);
+
+    for(ast_ptr each: *trees_num) {
+        nums.push_back(each);
+    }
+    for(ast_ptr each: *trees_bool) {
+        bools.push_back(each);
+    }
 }
