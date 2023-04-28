@@ -61,28 +61,31 @@ bool verifier(ast_ptr node, string game_str, vector<ast_ptr> nums, vector<ast_pt
 
     // Phase 3: formally verify
     size_t inv_pos = game_str.find("?inv");
-    for(ast_ptr inv: bools) {
+    for(int inv = 0; inv < bools.size(); inv++) {
         string copy = game_str;
-        copy.replace(inv_pos, 4, inv->to_string());
+        copy.replace(inv_pos, 4, bools[inv]->to_string());
 
-        string out_file = "fun_verifier/in.fun";
+        string out_file = "fun_verifier/in/in" + to_string(inv) + ".fun";
         ofstream out(out_file);
         out << copy;
         out.close();
+    }
 
-        system("cd fun_verifier/; ant -S >nul 2>nul");
+    system("cd fun_verifier/; ant -S >nul 2>nul");
 
-        string res;
-        ifstream res_file("fun_verifier/result.out");
+    string res;
+    ifstream res_file("fun_verifier/result.out");
+
+    for(int inv = 0; inv < bools.size(); inv++) {
         getline(res_file, res);
-        res_file.close();
-
         if(res == "YES") {
-            cout << node->to_string() << " strategy passes formal verification with invariant " << inv->to_string() << "!" << endl;
-            return false;
+            cout << node->to_string() << " strategy passes formal verification with invariant " << bools[inv]->to_string() << "!" << endl;
+            res_file.close();
+            return true;
         }
     }
     
+    res_file.close();
     // Verifiably correct strategy not found :(
     return false;
 }

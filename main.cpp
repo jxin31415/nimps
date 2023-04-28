@@ -24,6 +24,7 @@ string read_game() {
 }
 
 int main() {
+    auto start = chrono::steady_clock::now();
 
     // Input Parsing
     string game_str = read_game();
@@ -57,10 +58,14 @@ int main() {
     for(ast_ptr node: nums) {
         if (verif_wrapper(node, game_str, hole_pos, nums, bools)) {
             cout << "Strategy found and verified!" << endl;
+            auto end = chrono::steady_clock::now();
+            cout << "Elapsed(s)=" << chrono::duration_cast<chrono::seconds>(end - start).count() << endl;
             return 0;
         }
     }
 
     cout << "No valid strategy found :(" << endl;
+    auto end = chrono::steady_clock::now();
+    cout << "Elapsed(s)=" << chrono::duration_cast<chrono::seconds>(end - start).count() << endl;
     return 0;
 }

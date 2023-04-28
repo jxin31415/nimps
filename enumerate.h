@@ -5,12 +5,12 @@
 
 using namespace std;
 
-vector<envt> test_vec(100);
+vector<envt> test_vec(200);
 void setup_test_vec(vector<string>& vars) {
     for(int t = 0; t < test_vec.size(); t++) {
         envt env;
         for(string each: vars) {
-            env.set(each, rand());
+            env.set(each, rand() % (t+1));
         }
         test_vec[t] = env;
     }
@@ -98,9 +98,9 @@ void bottom_up(vector<string>& vars, vector<int>& consts, vector<ast_ptr>& nums,
         }
 
         size++;
-    }
 
-    cout << "Enumerated over " << trees_num->size() + trees_bool->size() << " programs" << endl;
+        cout << "Enumerated over " << trees_num->size() + trees_bool->size() << " programs so far" << endl;
+    }
 
     for(ast_ptr each: *trees_num) {
         nums.push_back(each);
