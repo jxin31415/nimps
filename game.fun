@@ -1,8 +1,8 @@
-game = fun [a >= 1 && a <= 3]{
+game = fun [] {
     sum = 0
     iter = 0
 
-    while sum < 21 [?inv && a >= 1 && a <= 3] {
+    while sum < 21 [] {
         b = ??
 
         sum = sum + a
