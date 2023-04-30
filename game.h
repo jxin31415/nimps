@@ -12,12 +12,7 @@ bool game(vector<int> player_a, hole hole) {
   // loop body
   while (sum < 21) {
     int a = player_a[iter];
-    assume(a >= 1);
-    assume(a <= 3);
-
     int b = (*hole)(vector<string> {"a", "sum", "iter"}, vector<int> {a, sum, iter});
-    assume(b >= 1);
-    assume(b <= 3);
 
     sum = sum + a;
 
