@@ -6,7 +6,7 @@
 
 using namespace std;
 
-vector<vector<int>> rand_games(10);
+vector<vector<int>> rand_games(20);
 set<int> moves_allowed;
 void setup_rand_games(vector<int>& valid_moves) {
     for(int each: valid_moves) {
