@@ -5,9 +5,9 @@ The goal of this work is to synthesize a provably optimal strategy for simple tu
 ## Related Resources
 POGS (codebase): [https://github.com/jxin31415/pogs](https://github.com/jxin31415/pogs)
 
-Report:
+Report: https://drive.google.com/file/d/1zAkxrNeTHW1-8B9e7bujdEBBgFZTnq_2/view?usp=sharing
 
-Poster:
+Poster: https://drive.google.com/file/d/1l_SZ9LNJi8MrgMEsywf-bZCjy_z6iYoZ/view?usp=sharing
 
 ---
 ## Description
